@@ -1,43 +1,86 @@
-import React, { useState } from 'react';
-import { Button, ButtonGroup } from 'reactstrap'
-import './App.css';
-const texts = require('./texts.json')
+import React, { useState } from "react";
+import { Button, ButtonGroup } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import "./App.css";
+const texts = require("./texts.json");
+const engText = texts.english;
 
-const getWordList = () => {
-  const textList = texts.english
-  const textArr = textList.slice()
-  console.log(textArr)
-}
-getWordList()
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
-const setText = (textArr) => {
+//toDo: align typing area and text area
+//toDo: styling improvements on button group
+//toDo: logic
 
-}
-
-class App extends React.Component {
-  const [rSelected, setRSelected] = useState(null)
-  render () {
-  return 
+export default function App() {
+  const classes = useStyles();
+  const [rSelected, setRSelected] = useState(null);
+  const [accuracy, setAccuracy] = useState("XX");
+  const [wpm, setWpm] = useState("XX");
+  // const []
+  return (
     <div className="App">
-        <div id='typeBox'>
-          <div id='header'>
-          <ButtonGroup>
-            <Button color='primary' onClick={() => setRSelected(25)} active={rSelected === 25}>25</Button>
-            <Button color='primary' onClick={() => setRSelected(50)} active={rSelected === 50}>50</Button>
-            <Button color='primary' onClick={() => setRSelected(100)} active={rSelected === 100}>100</Button>
-            <Button color='primary' onClick={() => setRSelected(150)} active={rSelected === 150}>150</Button>
-          </ButtonGroup>
-          <p>Selected: {rSelected}</p>
-          <h4 id='wpmAccCounter'>Accuracy: | WPM: </h4>
+      <div className="MainContainer">
+        <div className="TypeBox">
+          <div className="Header">
+            <div className="ButtonContainer">
+              <ButtonGroup size="large" variant="text" className={classes.root}>
+                <Button
+                  onClick={() => setRSelected(25)}
+                  disabled={rSelected === 25 ? true : false}
+                >
+                  25
+                </Button>
+                <Button
+                  onClick={() => setRSelected(50)}
+                  disabled={rSelected === 50 ? true : false}
+                >
+                  50
+                </Button>
+                <Button
+                  onClick={() => setRSelected(100)}
+                  disabled={rSelected === 100 ? true : false}
+                >
+                  100
+                </Button>
+                <Button
+                  onClick={() => setRSelected(150)}
+                  disabled={rSelected === 150 ? true : false}
+                >
+                  150
+                </Button>
+              </ButtonGroup>
+            </div>
+            <div className="WpmContainer">
+              <h3 id="wpmAccCounter">
+                Accuracy: {accuracy} | WPM: {wpm}
+              </h3>
+            </div>
           </div>
-        <div id='centerContainer'>
-          <p>{'textValues'}</p>
-            <input id='typingBox'></input>
-            <button id='redoButton'>redo</button>
+          <div className="InputContainer">
+            <div className="TextContainer">
+              <div className="TextArea">{"textValues"}</div>
+            </div>
+
+            <div className="InputTypeBox">
+              <input id="typingBox" />
+              <div className="RedoButtonContainer">
+                <Button id="redoButton" variant="contained" size="large">
+                  redo
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  }
+  );
 }
-
-export default App;

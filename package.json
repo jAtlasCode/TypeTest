@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.12.0",
-    "react-bootstrap": "^1.0.0-beta.15",
-    "react-dom": "^16.12.0",
-    "react-scripts": "3.2.0",
-    "reactstrap": "^8.1.1"
+    "@material-ui/core": "^4.11.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-scripts": "^3.4.4",
+    "reactstrap": "^8.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
