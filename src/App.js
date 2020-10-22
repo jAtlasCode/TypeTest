@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./App.css";
 const texts = require("./texts.json");
-const engText = texts.english;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,16 +15,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//toDo: align typing area and text area
 //toDo: styling improvements on button group
 //toDo: logic
+//toDo: create component(3) for word being typed, correct word, incorrect word
 
 export default function App() {
   const classes = useStyles();
   const [rSelected, setRSelected] = useState(null);
   const [accuracy, setAccuracy] = useState("XX");
   const [wpm, setWpm] = useState("XX");
+  const engText = texts.english;
+  const [wordList, setWordList] = useState([]);
+  const [randomWords, setRandomWords] = useState();
+  const [currentWord, setCurrentWord] = useState(0);
+  const [wordCount, setWordCount] = useState("");
+  const [correctKeys, setCorrectKeys] = useState(0);
+  const [timerActive, setTimerActive] = useState(false);
   // const []
+  function setText() {
+    let randomWords = [];
+    let wordList = [];
+    setWordList(engText[Math.floor(Math.random() * rSelected)]);
+    while (wordList.length < wordCount) {
+      const randomWord =
+        randomWords[Math.floor(Math.random() * randomWords.length)];
+      if (
+        wordList[wordList.length - 1] !== randomWord ||
+        wordList[wordList.length - 1] === undefined
+      ) {
+        wordList.push(randomWord);
+        setWordList(wordList);
+      }
+    }
+  }
+
+  function showText() {
+    wordList.forEach((word) => {});
+  }
+
+  useEffect(() => {
+    setText();
+
+    console.log("User selected word count of : ", rSelected);
+    console.group("state vars");
+    console.log(wordList);
+    console.log(randomWords);
+    console.log();
+    console.groupEnd();
+  }, [rSelected]);
+
+  const handleRedo = () => {
+    setText();
+  };
+
   return (
     <div className="App">
       <div className="MainContainer">
@@ -67,7 +109,7 @@ export default function App() {
           </div>
           <div className="InputContainer">
             <div className="TextContainer">
-              <div className="TextArea">{"textValues"}</div>
+              <div className="TextArea">{randomWords}</div>
             </div>
 
             <div className="InputTypeBox">
